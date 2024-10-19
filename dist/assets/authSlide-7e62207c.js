@@ -1,0 +1,1 @@
+import{V as o}from"./index-690d25d7.js";const n=o.injectEndpoints({endpoints:t=>({login:t.mutation({query:i=>({url:"/api/state/login",method:"POST",body:i})})})}),{useLoginMutation:a}=n;export{a as u};
