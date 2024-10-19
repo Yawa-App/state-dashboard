@@ -9,6 +9,8 @@ const LoginPage = lazy(() => import('src/pages/login'));
 const CirclePage = lazy(() => import('src/pages/circle'));
 const ResponderPage = lazy(() => import('src/pages/responder'));
 const Page404 = lazy(() => import('src/pages/page-not-found'));
+const ForgotPasswordPage = lazy(() => import('src/pages/forgot-password'));
+const ResetPasswordPage = lazy(() => import('src/pages/reset-password'));
 
 // ----------------------------------------------------------------------
 
@@ -23,6 +25,22 @@ export default function Router() {
       element: (
         <Suspense fallback={<div>Loading...</div>}>
           <LoginPage />
+        </Suspense>
+      ),
+    },
+    {
+      path: 'forgot-password',
+      element: (
+        <Suspense fallback={<div>Loading...</div>}>
+          <ForgotPasswordPage />
+        </Suspense>
+      ),
+    },
+    {
+      path: 'reset-password',
+      element: (
+        <Suspense fallback={<div>Loading...</div>}>
+          <ResetPasswordPage />
         </Suspense>
       ),
     },
