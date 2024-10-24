@@ -5,29 +5,30 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import { useRouter } from 'src/routes/hooks';
 import { bgGradient } from 'src/theme/css';
 import Logo from 'src/components/logo';
-import { useAuth } from 'src/hooks/useAuth';
-import { useForgetPassword } from 'src/hooks/useForgetPassword';
+// import { useAuth } from 'src/hooks/useAuth';
+import { useVerifyEmail } from 'src/hooks/useVerifyEmail';
 // import ArrowBackIcon from '@mui/icons-material/ArrowBack'; // Optional: Uncomment if you need an icon for navigation
 
 // ----------------------------------------------------------------------
 
-export default function ForgotPasswordView() {
+export default function VerifyEmailView() {
   // Retrieve the current theme and router instance
   const theme = useTheme();
   const router = useRouter();
 
   // State variables for managing form input, loading, and error states
   const [email, setEmail] = useState('');
+  const [otp, setOtp] =useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const {handleForgetPassword} = useForgetPassword();
+  const {handleVerifyEmail} = useVerifyEmail();
 
   // Handle form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
-    await handleForgetPassword(email, setLoading,setError )
+    await handleVerifyEmail(email, otp, setLoading, setError)
 
   };
 
@@ -59,7 +60,7 @@ export default function ForgotPasswordView() {
         <Logo sx={{ mb: 6 }} />
 
         <Typography variant='h4' style={{ marginBottom: 30, textAlign: 'center' }}>
-          Forgot Password?
+          Verify Email
         </Typography>
 
         <Card
@@ -96,6 +97,29 @@ export default function ForgotPasswordView() {
                   py: 0,
                 }}
               />
+
+              <InputLabel htmlFor='otp'>
+                otp
+              </InputLabel>
+              <TextField
+                id='otp'
+                name='otp'
+                value={otp}
+                onChange={(e) => setOtp(e.target.value)}
+                error={!!otp}
+                placeholder='Enter otp'
+                inputProps={{
+                  'aria-label': 'otp',
+                }}
+                fullWidth
+                size='small'
+                sx={{
+                  '& .MuiInputBase-root': {
+                    boxSizing: 'border-box', // Ensures padding is included in width and height calculations
+                  },
+                  py: 0,
+                }}
+              />
             </Stack>
 
             {error && (
@@ -121,7 +145,7 @@ export default function ForgotPasswordView() {
               }}
               loading={loading}
             >
-              Reset Password
+              Verify Email
             </LoadingButton>
           </form>
         </Card>

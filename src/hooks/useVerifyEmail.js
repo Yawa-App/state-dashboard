@@ -1,19 +1,19 @@
 import { useRouter } from 'src/routes/hooks';
 // import { useDispatch } from 'react-redux';
-import {useForgetPasswordMutation } from 'src/features/app/forgetPasswordSlide';
+import {useVerifyEmailMutation } from 'src/features/app/verifyEmailSlide';
 
 
-export const useForgetPassword = () => {
+export const useVerifyEmail = () => {
 
     // const dispatch = useDispatch();
     const router = useRouter();
-    const [forgetPassword] = useForgetPasswordMutation();
+    const [verifyEmail] = useVerifyEmailMutation();
 
 
-    const handleForgetPassword = async (email, setLoading, setError ) => {
+    const handleVerifyEmail = async (email, otp, setLoading, setError ) => {
 
         try {
-            const data = await forgetPassword({ email }).unwrap();
+            const data = await verifyEmail({ email, otp }).unwrap();
             // localStorage.setItem('accessToken', data.token);
             router.push('/reset-password');
         } catch (error) {
@@ -29,7 +29,7 @@ export const useForgetPassword = () => {
 
 
     return {
-        handleForgetPassword
+        handleVerifyEmail
     }
 }
 

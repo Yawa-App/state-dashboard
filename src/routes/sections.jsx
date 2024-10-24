@@ -9,7 +9,7 @@ const LoginPage = lazy(() => import('src/pages/login'));
 const CirclePage = lazy(() => import('src/pages/circle'));
 const ResponderPage = lazy(() => import('src/pages/responder'));
 const Page404 = lazy(() => import('src/pages/page-not-found'));
-const ForgotPasswordPage = lazy(() => import('src/pages/forgot-password'));
+const VerifyEmailPage = lazy(() => import('src/pages/verify-email'));
 const ResetPasswordPage = lazy(() => import('src/pages/reset-password'));
 
 // ----------------------------------------------------------------------
@@ -29,10 +29,10 @@ export default function Router() {
       ),
     },
     {
-      path: 'forgot-password',
+      path: 'verify-email',
       element: (
         <Suspense fallback={<div>Loading...</div>}>
-          <ForgotPasswordPage />
+          <VerifyEmailPage />
         </Suspense>
       ),
     },
