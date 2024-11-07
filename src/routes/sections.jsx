@@ -10,7 +10,7 @@ const CirclePage = lazy(() => import('src/pages/circle'));
 const ResponderPage = lazy(() => import('src/pages/responder'));
 const Page404 = lazy(() => import('src/pages/page-not-found'));
 const VerifyEmailPage = lazy(() => import('src/pages/verify-email'));
-const ResetPasswordPage = lazy(() => import('src/pages/reset-password'));
+const CreatePasswordPage = lazy(() => import('src/pages/create-password'));
 
 // ----------------------------------------------------------------------
 
@@ -37,10 +37,10 @@ export default function Router() {
       ),
     },
     {
-      path: 'reset-password',
+      path: 'create-password',
       element: (
         <Suspense fallback={<div>Loading...</div>}>
-          <ResetPasswordPage />
+          <CreatePasswordPage />
         </Suspense>
       ),
     },

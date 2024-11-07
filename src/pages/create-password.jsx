@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 
-import { ResetPasswordView } from 'src/sections/reset-password';
+import { CreatePasswordView } from 'src/sections/create-password';
 
 // ----------------------------------------------------------------------
 
@@ -8,10 +8,10 @@ export default function LoginPage() {
   return (
     <>
       <Helmet>
-        <title> Password Reset </title>
+        <title> Create Password </title>
       </Helmet>
 
-      <ResetPasswordView />
+      <CreatePasswordView />
     </>
   );
 }

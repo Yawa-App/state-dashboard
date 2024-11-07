@@ -7,6 +7,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import Router from 'src/routes/sections';
 import ThemeProvider from 'src/theme';
 import {store,  persistor  } from './features/api/store';
+import { AppProvider } from './context';
 
 // ----------------------------------------------------------------------
 
@@ -17,9 +18,9 @@ export default function App() {
     <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
     <ThemeProvider>
-
+      <AppProvider>
       <Router />
-
+      </AppProvider>
     </ThemeProvider>
     </PersistGate>
     </Provider>
