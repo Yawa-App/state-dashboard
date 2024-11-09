@@ -5,30 +5,31 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import { useRouter } from 'src/routes/hooks';
 import { bgGradient } from 'src/theme/css';
 import Logo from 'src/components/logo';
+import { useGetOtp } from 'src/hooks/useGetOtp';
 // import { useAuth } from 'src/hooks/useAuth';
-import { useVerifyEmail } from 'src/hooks/useVerifyEmail';
+// import { useVerifyEmail } from 'src/hooks/useVerifyEmail';
 // import ArrowBackIcon from '@mui/icons-material/ArrowBack'; // Optional: Uncomment if you need an icon for navigation
 
 // ----------------------------------------------------------------------
 
-export default function VerifyEmailView() {
+export default function GetOtpView() {
   // Retrieve the current theme and router instance
   const theme = useTheme();
   const router = useRouter();
 
   // State variables for managing form input, loading, and error states
   const [email, setEmail] = useState('');
-  const [otp, setOtp] =useState('');
+  // const [otp, setOtp] =useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const {handleVerifyEmail} = useVerifyEmail();
+  const {handleGetOtp} = useGetOtp();
 
   // Handle form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
-    await handleVerifyEmail(email, otp, setLoading, setError)
+    await handleGetOtp(email, setLoading, setError)
 
   };
 
@@ -51,8 +52,7 @@ export default function VerifyEmailView() {
       <Stack
         sx={{
           width: '45%',
-          height: '100%',
-          my: 5,
+          height: '104%',
           p: 5,
           alignItems: 'center',
           justifyContent: 'center',
@@ -64,16 +64,6 @@ export default function VerifyEmailView() {
           Verify Email
         </Typography>
 
-        <Stack
-          sx={{
-            width: '100%',
-            height: '65%',
-            mt: '',
-            p: '',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
         <Card
           sx={{
             p: 4, // Padding around the card content
@@ -109,7 +99,7 @@ export default function VerifyEmailView() {
                 }}
               />
 
-              <InputLabel htmlFor='otp'>
+              {/* <InputLabel htmlFor='otp'>
                 otp
               </InputLabel>
               <TextField
@@ -130,13 +120,7 @@ export default function VerifyEmailView() {
                   },
                   py: 0,
                 }}
-              />
-            </Stack>
-
-            <Stack direction="row" alignItems="center" justifyContent="flex-end" sx={{ mt: 3, }}>
-              <Link variant="subtitle2" underline="hover" href='/get-otp'>
-                Get OTP
-              </Link>
+              /> */}
             </Stack>
 
             {error && (
@@ -151,7 +135,7 @@ export default function VerifyEmailView() {
               variant='contained'
               size='medium'
               sx={{
-                mt: 3,
+                mt: 5,
                 py: 1,
                 backgroundColor: '#03BDE9',
                 color: '#FFF',
@@ -162,12 +146,12 @@ export default function VerifyEmailView() {
               }}
               loading={loading}
             >
-              Verify Email
+              get OTP
             </LoadingButton>
           </form>
         </Card>
-        </Stack>
-        <Stack direction='row' alignItems='center' justifyContent='center' sx={{ mt: 3 }}>
+
+        {/* <Stack direction='row' alignItems='center' justifyContent='center' sx={{ my: 3 }}>
           <IconButton onClick={() => router.push('/login')}>
             <img src='assets/icons/Feather_Icons.svg' alt=''/>
           </IconButton>
@@ -181,7 +165,7 @@ export default function VerifyEmailView() {
           >
             Return to Log in
           </Link>
-        </Stack>
+        </Stack> */}
       </Stack>
     </Box>
   );

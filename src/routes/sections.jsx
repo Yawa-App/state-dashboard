@@ -10,6 +10,7 @@ const CirclePage = lazy(() => import('src/pages/circle'));
 const ResponderPage = lazy(() => import('src/pages/responder'));
 const Page404 = lazy(() => import('src/pages/page-not-found'));
 const VerifyEmailPage = lazy(() => import('src/pages/verify-email'));
+const GetOtpPage = lazy(() => import('src/pages/get-otp'));
 const CreatePasswordPage = lazy(() => import('src/pages/create-password'));
 
 // ----------------------------------------------------------------------
@@ -33,6 +34,14 @@ export default function Router() {
       element: (
         <Suspense fallback={<div>Loading...</div>}>
           <VerifyEmailPage />
+        </Suspense>
+      ),
+    },
+    {
+      path: 'get-otp',
+      element: (
+        <Suspense fallback={<div>Loading...</div>}>
+          <GetOtpPage />
         </Suspense>
       ),
     },

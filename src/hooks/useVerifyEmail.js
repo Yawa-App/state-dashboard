@@ -20,7 +20,7 @@ export const useVerifyEmail = () => {
             setError(error.data)
             console.log(error)
             setEmail(email);
-            router.push('/create-password');
+            // router.push('/create-password');
         }finally{
             setLoading(false)
         }
