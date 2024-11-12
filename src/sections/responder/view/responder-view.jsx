@@ -1,6 +1,8 @@
-import {  useState } from 'react';
-import PropTypes from 'prop-types'; 
+import { useState } from 'react';
+import PropTypes from 'prop-types';
 import { useResponder } from 'src/hooks/useResponder';
+import { useGetResponderQuery } from 'src/features/app/responderSlide';
+import { useApp } from 'src/context';
 
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
@@ -12,10 +14,7 @@ import Typography from '@mui/material/Typography';
 import TableContainer from '@mui/material/TableContainer';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
-
 import TablePagination from '@mui/material/TablePagination';
-
-
 
 import Iconify from 'src/components/iconify';
 import Scrollbar from 'src/components/scrollbar';
@@ -24,7 +23,6 @@ import TableNoData from '../table-no-data';
 import UserTableRow from '../user-table-row';
 import UserTableHead from '../user-table-head';
 import TableEmptyRows from '../table-empty-rows';
-
 
 // ----------------------------------------------------------------------
 
@@ -35,14 +33,12 @@ export default function ResponderView() {
   const [filterName, setFilterName] = useState('');
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
+  const { data: responders, isLoading: responderLoading, isError: responderError } = useGetResponderQuery();
+  const { setOpen, setModalType } = useApp();
 
-  const { responder} = useResponder()
-
-
-
-
-
-
+   // Handle loading and error states for categories
+   if (responderLoading) return <Typography>Loading...</Typography>;
+   if (responderError) return <Typography>Error loading Can&apos;t get responder endpoint</Typography>;
 
   const handleSort = (event, id) => {
     const isAsc = orderBy === id && order === 'asc';
@@ -65,20 +61,23 @@ export default function ResponderView() {
   };
 
   const dataFiltered = applyFilter({
-    inputData: responder,
+    inputData: responders?.responders || [], // Fallback to an empty array
     comparator: getComparator(order, orderBy),
     filterName,
   });
-
-
-
 
   const notFound = !dataFiltered.length && !!filterName;
 
   return (
     <Container>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-        <Typography style={{marginBottom: 40}} variant="h4">First Responders<br /> <span style={{color: '#292727', fontSize: "16px", fontWeight: 400, lineHeight: "19.36px"}}>Manage safety oriented organizations withing the state.</span></Typography>
+        <Typography style={{ marginBottom: 40 }} variant="h4">
+          First Responders
+          <br />
+          <span style={{ color: '#292727', fontSize: '16px', fontWeight: 400, lineHeight: '19.36px' }}>
+            Manage safety-oriented organizations within the state.
+          </span>
+        </Typography>
 
         <Stack direction="row" spacing={2}>
           <TextField
@@ -91,18 +90,22 @@ export default function ResponderView() {
                   <Iconify icon="eva:search-fill" />
                 </InputAdornment>
               ),
-              style: { height: '42px', width: "240px" },
+              style: { height: '42px', width: '240px' },
             }}
             variant="outlined"
             size="small"
           />
           <Button
+            onClick={() => {
+              setModalType("create-responder")
+              setOpen(true)
+            }}
             variant="contained"
-            style={{ background: "#03BDE9", width: "181px", height: "40px", borderRadius: "4px" }}
+            style={{ background: '#03BDE9', width: '215px', height: '40px', borderRadius: '4px' }}
             color="inherit"
             startIcon={<Iconify icon="eva:plus-fill" />}
           >
-          Create New Circle
+            Create New Responder
           </Button>
         </Stack>
       </Stack>
@@ -110,25 +113,22 @@ export default function ResponderView() {
       <Card>
         <Scrollbar>
           <TableContainer sx={{ overflow: 'unset' }}>
-            <Table sx={{ minWidth: 800 }} style={{background: "#F2F2F2"}}>
+            <Table sx={{ minWidth: 800 }} style={{ background: '#F2F2F2' }}>
               <UserTableHead
                 order={order}
                 orderBy={orderBy}
-                rowCount={responder?.length}
-                numSelected={0} // No selected rows since we're not using checkboxes
+                rowCount={responders?.total}
+                numSelected={0}
                 onRequestSort={handleSort}
-                
-               
                 headLabel={[
                   { id: 'name', label: 'Name' },
                   { id: 'Emergency No.', label: 'Emergency No.' },
                   { id: 'Handler', label: 'Handler' },
                   { id: 'Created', label: 'Created' },
                   { id: '', label: '' },
-                  
                 ]}
               />
-             
+
               <TableBody>
                 {dataFiltered
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
@@ -144,7 +144,7 @@ export default function ResponderView() {
 
                 <TableEmptyRows
                   height={77}
-                  emptyRows={emptyRows(page, rowsPerPage, responder?.length)}
+                  emptyRows={emptyRows(page, rowsPerPage, responders?.total)}
                 />
 
                 {notFound && <TableNoData query={filterName} />}
@@ -156,7 +156,7 @@ export default function ResponderView() {
         <TablePagination
           page={page}
           component="div"
-          count={responder?.length}
+          count={responders?.responder?.total}
           rowsPerPage={rowsPerPage}
           onPageChange={handleChangePage}
           rowsPerPageOptions={[5, 10, 25]}

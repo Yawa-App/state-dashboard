@@ -1,16 +1,23 @@
 // authCirclesApiSlice.ts
 import { apiSlice } from "./apiSlice";
 
-export const authReponderApiSlice = apiSlice.injectEndpoints({
+export const authResponderApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
+    createResponder: builder.mutation({
+        query: (credentials) => ({
+            url: '/state/responders',
+            method: 'POST',
+            body: credentials,
+        }),
+    }),
+
     getResponder: builder.query({
       query: () => ({
-        url: '/api/admin/responders',
+        url: '/state/responders',
         method: 'GET',
-     
       }),
     }),
   }),
 });
 
-export const { useGetResponderQuery } = authReponderApiSlice;
+export const { useCreateResponderMutation, useGetResponderQuery } = authResponderApiSlice;
