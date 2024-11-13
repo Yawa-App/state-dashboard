@@ -19,17 +19,17 @@ export default function GetOtpView() {
 
   // State variables for managing form input, loading, and error states
   const [email, setEmail] = useState('');
-  // const [otp, setOtp] =useState('');
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const {handleGetOtp} = useGetOtp();
+  const { handleGetOtp,
+    isError,
+    isLoading,
+    errors } = useGetOtp();
 
   // Handle form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setLoading(true);
-    await handleGetOtp(email, setLoading, setError)
+    await handleGetOtp(email, setError)
 
   };
 
@@ -144,7 +144,7 @@ export default function GetOtpView() {
                 },
                 boxSizing: 'border-box', // Ensures padding is included in width and height calculations
               }}
-              loading={loading}
+              loading={isLoading}
             >
               get OTP
             </LoadingButton>

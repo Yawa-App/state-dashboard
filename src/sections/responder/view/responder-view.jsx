@@ -36,9 +36,8 @@ export default function ResponderView() {
   const { data: responders, isLoading: responderLoading, isError: responderError } = useGetResponderQuery();
   const { setOpen, setModalType } = useApp();
 
-   // Handle loading and error states for categories
-   if (responderLoading) return <Typography>Loading...</Typography>;
-   if (responderError) return <Typography>Error loading Can&apos;t get responder endpoint</Typography>;
+  // Handle loading and error states for categories
+  if (responderLoading) return <Typography>Loading...</Typography>;
 
   const handleSort = (event, id) => {
     const isAsc = orderBy === id && order === 'asc';

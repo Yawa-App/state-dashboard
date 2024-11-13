@@ -6,21 +6,20 @@ import { useRouter } from 'src/routes/hooks';
 export const useGetOtp = () => {
 
     const router = useRouter();
-    const [getOtp] = useGetOtpMutation();
+    const [getOtp, { isLoading, isError, error: errors }] = useGetOtpMutation();
     // const { email } = useApp(); // Access the email from context
 
-    const handleGetOtp = async (email, setLoading, setError ) => {
+    const handleGetOtp = async (email, setError) => {
 
         // console.log('Creating password with:', { email, password });  // Log email and password for debugging
 
         try {
-            const data = await getOtp({ email }).unwrap();
+            const data = await getOtp({ email, }).unwrap();
+            console.log(data)
             router.push('/verify-email'); // Navigate to verify-email on success
         } catch (error) {
-            setError(error.data)
+            setError(errors.data)
             console.log(error)
-        }finally{
-            setLoading(false)
         }
 
     }
@@ -28,7 +27,10 @@ export const useGetOtp = () => {
 
 
     return {
-        handleGetOtp
+        handleGetOtp,
+        isError,
+        isLoading,
+        errors
     }
 }
 
