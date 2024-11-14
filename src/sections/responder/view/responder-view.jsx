@@ -23,6 +23,7 @@ import TableNoData from '../table-no-data';
 import UserTableRow from '../user-table-row';
 import UserTableHead from '../user-table-head';
 import TableEmptyRows from '../table-empty-rows';
+import InviteResponderModal from '../invite-responder-modal';
 
 // ----------------------------------------------------------------------
 
@@ -162,6 +163,7 @@ export default function ResponderView() {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Card>
+      <InviteResponderModal />
     </Container>
   );
 }
