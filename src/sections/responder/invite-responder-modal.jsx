@@ -70,6 +70,7 @@ const InviteResponderModal = () => {
               color="inherit"
               disabled={responderLoading}
               fullWidth
+              style={{ background: '#03BDE9' }}
             >
               {responderLoading ? 'Inviting...' : 'Invite Responder'}
             </Button>

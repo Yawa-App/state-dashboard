@@ -5,7 +5,7 @@ export const authResponderApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     createResponder: builder.mutation({
       query: (credentials) => ({
-        url: '/state/responders',
+        url: '/api/state/responders',
         method: 'POST',
         body: credentials,
       }),
